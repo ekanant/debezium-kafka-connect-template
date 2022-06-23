@@ -11,7 +11,7 @@ services:
             - "./docker-data/kafka/data:/kafka/data"
             - "./docker-data/kafka/logs:/kafka/logs"
         environment:
-            - BOOTSTRAP_SERVERS=kafka_url:9200
+            - BOOTSTRAP_SERVERS=kafka_url:9092
             - GROUP_ID=2
             - CONFIG_STORAGE_TOPIC=elasticsearch_sink_connect_configs
             - OFFSET_STORAGE_TOPIC=elasticsearch_sink_connect_offsets
