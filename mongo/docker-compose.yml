@@ -1,0 +1,29 @@
+version: "3.3"
+services: 
+    sendgrid_mongodb_connect_sink:
+        platform: "linux/amd64"
+        build:
+            context: debezium-mongodb
+        # ports:
+        #     - "8083:8083"
+        volumes:
+            - "./:/app"
+            - "./docker-data/kafka/data:/kafka/data"
+            - "./docker-data/kafka/logs:/kafka/logs"
+        environment:
+            - BOOTSTRAP_SERVERS=kafka_url:9092
+            - GROUP_ID=2
+            - CONFIG_STORAGE_TOPIC=mongo_sink_connect_configs
+            - OFFSET_STORAGE_TOPIC=mongo_sink_connect_offsets
+            - CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE=false
+            - CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE=false
+            - REST_HOST_NAME=0.0.0.0
+            - REST_PORT=8083
+            - ADVERTISED_HOST_NAME=0.0.0.0
+            - ADVERTISED_PORT=8083
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "128m"
+                max-file: "5"
+        
