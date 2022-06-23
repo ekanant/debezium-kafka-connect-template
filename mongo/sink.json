@@ -1,0 +1,21 @@
+{
+  "name": "mongodb-sink",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+    "connection.uri": "mongodb://mongo_url@ip/database",
+    "topics": "my_event_topic",
+    "database": "my_db",
+    "collection": "my_collection",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "document.id.strategy.overwrite.existing": "true",
+    "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInKeyStrategy",
+    "transforms": "SetId,TimestampDateTimeConverter",
+    "transforms.SetId.type": "org.apache.kafka.connect.transforms.HoistField$Key",
+    "transforms.SetId.field": "_id",
+    "transforms.TimestampDateTimeConverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+    "transforms.TimestampDateTimeConverter.format": "yyyy-MM-dd'T'HH:mm:ssXXX",
+    "transforms.TimestampDateTimeConverter.target.type": "Timestamp",
+    "transforms.TimestampDateTimeConverter.field": "my_timestamp",
+    "schemas.enable": false
+  }
+}
